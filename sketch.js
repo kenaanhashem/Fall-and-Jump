@@ -1,18 +1,22 @@
 let joe;
 let squares = [];
+let liney = 775;
 
 function setup() {
   createCanvas(800, 800);
-joe = new Sprite(width/1,200,4);
+joe = new Sprite(30,750,5);
 }
 
 function draw() {
   background(220);
+  stroke("black")
+  strokeWeight(5)
+  line(0,800,width,800)
 
   joe.drawMe();
   joe.moveMe();
 
-  if (frameCount % 25 == 0) {
+  if (frameCount % 75 == 0) {
         let  b = new Squares(random(0,width), 0, random(-1,1), random(1,3));
         squares.push(b);
         console.log(squares);
@@ -42,12 +46,21 @@ drawMe(){
   fill("black")
   ellipse(this.x+7,this.y-5,5,5)
   ellipse(this.x-7,this.y-5,5,5)
+  bezier(this.x-10,this.y+10,this.x-1,this.y+13,this.x+1,this.y+13,this.x+10,this.y+10);
 }
 
 
 moveMe(){
   if (keyIsDown(UP_ARROW)){
     this.y -= this.speed;
+  }
+  else {
+    if (this.y <= liney){
+      this.y = liney
+    }
+    else {
+      this.y += this.speed;
+    }
   }
 
   if (keyIsDown(DOWN_ARROW)){
