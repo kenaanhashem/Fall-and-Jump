@@ -12,7 +12,7 @@ function draw() {
   joe.drawMe();
   joe.moveMe();
 
-  if (frameCount % 25 == 0) {
+  if (frameCount % 70 == 0) {
         let  b = new Ball(random(0,width), 0, random(-1,1), random(1,3));
         ball.push(b);
         console.log(ball);
