@@ -1,6 +1,6 @@
 let joe;
 let squares = [];
-let liney = 775;
+let liney = 771;
 
 function setup() {
   createCanvas(800, 800);
