@@ -1,5 +1,11 @@
 let joe;
+<<<<<<< Updated upstream
 let ball = [];
+=======
+let squares = [];
+let liney = 775;
+let platforms = [];
+>>>>>>> Stashed changes
 
 function setup() {
   createCanvas(800, 800);
@@ -95,4 +101,25 @@ class Ball {
         this.y=this.y-10;
   }
 }
+}//end of class Squares
+
+
+class Platform {
+
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+  }
+
+  drawPlatforms(){
+    fill("black")
+    rect(this.x,this.y,this.x+25,this.y+3);
+  }
+}//end of class platforms
+
+
+function keyPressed(){
+  let p = new Platform(300,100);
+  platforms.push(p);
+  print(platforms);
 }
