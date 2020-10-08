@@ -1,17 +1,27 @@
 let joe;
 let squares = [];
 let liney = 771;
+let platforms = [];
+
 
 function setup() {
   createCanvas(800, 800);
 joe = new Sprite(30,750,5);
+
+p = new Platform(200,500);
+platforms.push(p)
+
 }
 
 function draw() {
-  background(220);
-  stroke("black")
-  strokeWeight(5)
-  line(0,800,width,800)
+  background(222,184,135);
+  stroke("black");
+  strokeWeight(5);
+  line(0,800,width,800);
+
+for (let i = 0; i < platforms.length; i++) {
+  platforms[i].drawPlatforms();
+}
 
   joe.drawMe();
   joe.moveMe();
@@ -41,7 +51,7 @@ class Sprite {
 
 drawMe(){
   stroke(10);
-  fill("blue");
+  fill(280,125,110);
   ellipse(this.x,this.y,50,50);
   fill("black")
   ellipse(this.x+7,this.y-5,5,5)
@@ -93,7 +103,7 @@ class Squares {
   drawSquares(){
     stroke(1);
     strokeWeight(1);
-    fill("green");
+    fill(60,205,60);
     rect(this.x,this.y,30,30);
   }
 
@@ -109,3 +119,16 @@ class Squares {
   }
 }
 }
+
+class Platform {
+
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+  }
+
+  drawPlatforms(){
+    fill("black")
+    rect(this.x,this.y,75,3);
+  }
+}//end of class platforms
