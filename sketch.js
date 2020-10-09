@@ -1,12 +1,12 @@
 let joe;
 let squares = [];
-let liney = 771;
+let liney = 671;
 let platforms = [];
 
 
 function setup() {
-  createCanvas(800, 800);
-joe = new Sprite(30,750,5);
+  createCanvas(800, 700);
+joe = new Sprite(30,650,5);
 
 p = new Platform(200,500);
 platforms.push(p)
@@ -17,7 +17,7 @@ function draw() {
   background(222,184,135);
   stroke("black");
   strokeWeight(5);
-  line(0,800,width,800);
+  line(0,700,width,700);
 
 for (let i = 0; i < platforms.length; i++) {
   platforms[i].drawPlatforms();
@@ -61,15 +61,27 @@ drawMe(){
 
 
 moveMe(){
+  let hitPlatform = false;
   if (keyIsDown(UP_ARROW)){
     this.y -= this.speed;
   }
   else {
+    for (let i = 0; i < platforms.length; i++) {
+      let currentPlatform = platforms[i]
+      if (this.x<currentPlatform.x+75 && this.x>currentPlatform.x){
+        if (this.y<currentPlatform.y+3 && this.y>currentPlatform.y){
+          hitPlatform=true
+          console.log("hit platforms")
+        }
+      }
+    }
     if (this.y <= liney){
       this.y = liney
     }
     else {
-      this.y += this.speed;
+      if(hitPlatform===false){
+        this.y += this.speed;
+      }
     }
   }
 
