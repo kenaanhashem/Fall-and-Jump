@@ -3,11 +3,12 @@ let squares = [];
 let liney = 671;
 let platforms = [];
 let circles = [];
+let hits = [];
 
 
 function setup() {
   createCanvas(800, 700);
-joe = new Sprite(30,650,5);
+joe = new Sprite(30,650,20,20);
 
 p = new Platform(200,500);
 platforms.push(p)
@@ -26,6 +27,7 @@ for (let i = 0; i < platforms.length; i++) {
 
   joe.drawMe();
   joe.moveMe();
+  joe.numberLives();
 
   if (frameCount % 75 == 0) {
         let  b = new Squares(random(0,width), 0, random(-1,1), random(1,3));
@@ -50,7 +52,8 @@ for (let i = 0; i < circles.length; i++) {
   circles[i].bounceCircles();
 }
 
-  }
+}
+
 
 
 
@@ -58,13 +61,12 @@ for (let i = 0; i < circles.length; i++) {
 
 class Sprite {
 
-  constructor(x,y, speed){
+  constructor(x,y, xspeed, yspeed){
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.xspeed = xspeed;
+    this.yspeed = yspeed
   }
-
-
 
 drawMe(){
   stroke(10);
@@ -80,7 +82,7 @@ drawMe(){
 moveMe(){
   let hitPlatform = false;
   if (keyIsDown(UP_ARROW)){
-    this.y -= this.speed;
+    this.y -= this.yspeed;
   }
   else {
     for (let i = 0; i < platforms.length; i++) {
@@ -97,21 +99,37 @@ moveMe(){
     }
     else {
       if(hitPlatform===false){
-        this.y += this.speed;
+        this.y += this.yspeed;
       }
     }
   }
 
-  if (keyIsDown(DOWN_ARROW)){
-    this.y += this.speed;
-  }
+  //if (keyIsDown(DOWN_ARROW)){
+    //this.y += this.yspeed;
+  //}
 
   if (keyIsDown(LEFT_ARROW)){
-    this.x -= this.speed;
+    this.x -= this.xspeed;
   }
 
   if(keyIsDown(RIGHT_ARROW)){
-    this.x += this.speed;
+    this.x += this.xspeed;
+  }
+}//end of moveMe
+
+numberLives(){
+  textSize(50);
+  fill("black");
+  stroke("black");
+  if (hits.length >= 3) {
+    text("Game Over", 290, 300);
+    exit();
+  } else if (hits.length == 2) {
+    text("Lives: 1", 325, 50);
+  } else if (hits.length == 1) {
+    text("Lives: 2", 325, 50);
+  } else if (hits.length == 0) {
+    text("Lives: 3", 325, 50);
   }
 }
 
@@ -145,8 +163,9 @@ class Squares {
     if (this.x >= joe.x-15 && this.x <= joe.x+15 && this.y > joe.y-40 && this.y < joe.y+40){
         this.yspeed = -this.yspeed;
         this.y=this.y-10;
-  }
-}
+         hits.push("hit");
+      }
+    }
 }//end of class squares
 
 
@@ -194,6 +213,7 @@ class Circles {
     if (this.x >= joe.x-15 && this.x <= joe.x+15 && this.y > joe.y-40 && this.y < joe.y+40){
         this.yspeed = -this.yspeed;
         this.y=this.y-10;
+         hits.push("hit");
   }
 }
 }//end of class circles
