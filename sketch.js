@@ -8,8 +8,17 @@ let platforms = [];
 >>>>>>> Stashed changes
 
 function setup() {
+<<<<<<< Updated upstream
   createCanvas(800, 800);
 joe = new Sprite(width/1,200,4);
+=======
+  createCanvas(800, 700);
+joe = new Sprite(30,650,20,20);
+
+p = new Platform(200,500);
+platforms.push(p);
+
+>>>>>>> Stashed changes
 }
 
 function draw() {
@@ -36,7 +45,12 @@ class Sprite {
   constructor(x,y, speed){
     this.x = x;
     this.y = y;
+<<<<<<< Updated upstream
     this.speed = speed;
+=======
+    this.xspeed = xspeed;
+    this.yspeed = yspeed;
+>>>>>>> Stashed changes
   }
 
 
