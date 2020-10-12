@@ -2,6 +2,7 @@ let joe;
 let squares = [];
 let liney = 671;
 let platforms = [];
+let circles = [];
 
 
 function setup() {
@@ -37,7 +38,23 @@ for (let i = 0; i < platforms.length; i++) {
        	  squares[i].moveSquares();
         	squares[i].bounceSquares();
     }
+
+    if (frameCount % 75 == 0) {
+      let r = new Circles(random(0,width), 0, random(-1,1), random(1,3));
+      circles.push(r);
+      console.log(circles);
+    }
+for (let i = 0; i < circles.length; i++) {
+  circles[i].drawCircles();
+  circles[i].moveCircles();
+  circles[i].bounceCircles();
 }
+
+  }
+
+
+
+
 
 class Sprite {
 
@@ -112,10 +129,10 @@ class Squares {
     this.yspeed = yspeed
   }
 
-  drawSquares(){
+  drawSquares() {
     stroke(1);
     strokeWeight(1);
-    fill(60,205,60);
+    fill(155,198,146);
     rect(this.x,this.y,30,30);
   }
 
@@ -130,7 +147,10 @@ class Squares {
         this.y=this.y-10;
   }
 }
-}
+}//end of class squares
+
+
+
 
 class Platform {
 
@@ -140,7 +160,40 @@ class Platform {
   }
 
   drawPlatforms(){
-    fill("black")
-    rect(this.x,this.y,75,3);
+    stroke(46,70,71);
+    fill(191,220,223);
+    strokeWeight(1.5)
+    rect(this.x,this.y,75,5);
   }
 }//end of class platforms
+
+
+
+class Circles {
+
+  constructor(x,y, xspeed, yspeed){
+    this.x = x;
+    this.y = y;
+    this.xspeed = xspeed;
+    this.yspeed = yspeed
+  }
+
+  drawCircles(){
+    stroke(1);
+    strokeWeight(1);
+    fill(81,141,106);
+    ellipse(this.x,this.y,30,30);
+  }
+
+  moveCircles(){
+    this.x = this.x + this.xspeed;
+    this.y = this.y + this.yspeed;
+  }
+
+  bounceCircles(){
+    if (this.x >= joe.x-15 && this.x <= joe.x+15 && this.y > joe.y-40 && this.y < joe.y+40){
+        this.yspeed = -this.yspeed;
+        this.y=this.y-10;
+  }
+}
+}//end of class circles
