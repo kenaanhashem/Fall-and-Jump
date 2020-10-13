@@ -8,10 +8,31 @@ let hits = [];
 
 function setup() {
   createCanvas(800, 700);
-joe = new Sprite(30,650,20,20);
+joe = new Sprite(30,650,10,4);
 
-p = new Platform(200,500);
-platforms.push(p)
+p = new Platform(random(100,300),random(520,600));
+platforms.push(p);
+
+p2 = new Platform(random(100,700),random(600,650));
+platforms.push(p2);
+
+p3 = new Platform(random(50,240),random(180,300));
+platforms.push(p3);
+
+p4 = new Platform(random(500,700),random(200,375));
+platforms.push(p4);
+
+p5 = new Platform(random(200,400),random(480,560));
+platforms.push(p5);
+
+p6 = new Platform(random(400,800),random(275,400));
+platforms.push(p6);
+
+p7 = new Platform(random(1,400),random(300,500));
+platforms.push(p7);
+
+p8 = new Platform(375,100);
+platforms.push(p8);
 
 }
 
@@ -88,13 +109,13 @@ moveMe(){
     for (let i = 0; i < platforms.length; i++) {
       let currentPlatform = platforms[i]
       if (this.x<currentPlatform.x+75 && this.x>currentPlatform.x){
-        if (this.y<currentPlatform.y+3 && this.y>currentPlatform.y){
+        if (this.y+25<currentPlatform.y+8 && this.y+25>currentPlatform.y){
           hitPlatform=true
           console.log("hit platforms")
         }
       }
     }
-    if (this.y <= liney){
+    if (this.y >= liney){
       this.y = liney
     }
     else {
@@ -117,19 +138,20 @@ moveMe(){
   }
 }//end of moveMe
 
+
 numberLives(){
   textSize(50);
   fill("black");
   stroke("black");
-  if (hits.length >= 3) {
+if (hits.length >= 3) {
     text("Game Over", 290, 300);
-    exit();
+    noLoop();
   } else if (hits.length == 2) {
-    text("Lives: 1", 325, 50);
+    text("Lives: 1", 575, 50);
   } else if (hits.length == 1) {
-    text("Lives: 2", 325, 50);
+    text("Lives: 2", 575, 50);
   } else if (hits.length == 0) {
-    text("Lives: 3", 325, 50);
+    text("Lives: 3", 575, 50);
   }
 }
 
@@ -160,7 +182,7 @@ class Squares {
   }
 
   bounceSquares(){
-    if (this.x >= joe.x-15 && this.x <= joe.x+15 && this.y > joe.y-40 && this.y < joe.y+40){
+    if (this.x >= joe.x-25 && this.x <= joe.x+25 && this.y > joe.y-25 && this.y < joe.y+25){
         this.yspeed = -this.yspeed;
         this.y=this.y-10;
          hits.push("hit");
@@ -182,7 +204,7 @@ class Platform {
     stroke(46,70,71);
     fill(191,220,223);
     strokeWeight(1.5)
-    rect(this.x,this.y,75,5);
+    rect(this.x,this.y,75,8);
   }
 }//end of class platforms
 
@@ -210,7 +232,7 @@ class Circles {
   }
 
   bounceCircles(){
-    if (this.x >= joe.x-15 && this.x <= joe.x+15 && this.y > joe.y-40 && this.y < joe.y+40){
+    if (this.x >= joe.x-25 && this.x <= joe.x+25 && this.y > joe.y-25 && this.y < joe.y+25){
         this.yspeed = -this.yspeed;
         this.y=this.y-10;
          hits.push("hit");
