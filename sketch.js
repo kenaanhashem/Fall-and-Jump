@@ -4,11 +4,13 @@ let liney = 671;
 let platforms = [];
 let circles = [];
 let hits = [];
+let flag;
 
 
 function setup() {
   createCanvas(800, 700);
 joe = new Sprite(30,650,10,4);
+flag = new Flag(405,100)
 
 p = new Platform(random(100,300),random(520,600));
 platforms.push(p);
@@ -50,6 +52,11 @@ for (let i = 0; i < platforms.length; i++) {
   joe.moveMe();
   joe.numberLives();
 
+  flag.drawFlag();
+  flag.win();
+
+
+
   if (frameCount % 75 == 0) {
         let  b = new Squares(random(0,width), 0, random(-1,1), random(1,3));
         squares.push(b);
@@ -74,6 +81,7 @@ for (let i = 0; i < circles.length; i++) {
 }
 
 }
+
 
 
 
@@ -125,6 +133,14 @@ moveMe(){
     }
   }
 
+  if (this.x-30 < -30){
+    this.x = 800
+  }
+
+  if (this.x+30 > 830){
+    this.x = 0
+  }
+
   //if (keyIsDown(DOWN_ARROW)){
     //this.y += this.yspeed;
   //}
@@ -154,6 +170,7 @@ if (hits.length >= 3) {
     text("Lives: 3", 575, 50);
   }
 }
+
 
 } // end of class Sprite
 
@@ -232,10 +249,32 @@ class Circles {
   }
 
   bounceCircles(){
-    if (this.x >= joe.x-25 && this.x <= joe.x+25 && this.y > joe.y-25 && this.y < joe.y+25){
+    if (this.x >= joe.x-25 && this.x <= joe.x+25 && this.y >= joe.y-25 && this.y <= joe.y+25){
         this.yspeed = -this.yspeed;
         this.y=this.y-10;
          hits.push("hit");
   }
 }
 }//end of class circles
+
+class Flag {
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+  }
+
+  drawFlag(){
+    strokeWeight(3)
+    line(this.x,this.y,this.x,this.y-25)
+    rect(this.x,this.y-25,18,10)
+  }
+
+  win(){
+    if (this.x >= joe.x-25 && this.x <= joe.x+25 && this.y-25 >= joe.y-25 && this.y-25 <= joe.y+25){
+      text("You Win!",290,300)
+      noLoop();
+    }
+
+
+  }
+}
